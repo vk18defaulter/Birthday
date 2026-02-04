@@ -2,43 +2,61 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Birthday Ishita 🎉</title>
+<title>Happy Birthday Ishita 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
 <style>
-html, body {
+body {
   margin: 0;
-  padding: 0;
-  height: 100%;
+  height: 100vh;
   background: black;
   overflow: hidden;
-  font-family: 'Segoe UI', sans-serif;
-  color: white;
+  font-family: 'Poppins', sans-serif;
+  transition: background 2s;
 }
 
-/* Center button */
-#start {
+.center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 18px 35px;
-  font-size: 22px;
-  border: none;
-  border-radius: 40px;
-  background: #ff4d6d;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 0 20px rgba(255,77,109,0.7);
+  text-align: center;
 }
 
-/* Message text */
-#message {
-  display: none;
-  text-align: center;
+button {
+  padding: 16px 35px;
+  font-size: 20px;
+  border: none;
+  border-radius: 40px;
+  background: #ff4d88;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(255,77,136,0.8);
+}
+
+.hidden { display: none; }
+
+/* Bulbs */
+#bulbs {
   position: absolute;
-  top: 40%;
+  top: 0;
   width: 100%;
-  font-size: 28px;
-  line-height: 1.6;
+  display: flex;
+  justify-content: space-around;
+}
+
+.bulb {
+  width: 20px;
+  height: 30px;
+  background: yellow;
+  border-radius: 50%;
+  animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
 }
 
 /* Balloons */
@@ -47,84 +65,132 @@ html, body {
   bottom: -150px;
   width: 60px;
   height: 80px;
-  background: red;
-  border-radius: 50% 50% 50% 50%;
+  border-radius: 50%;
   animation: float 8s linear infinite;
 }
 
-.balloon::after {
-  content: '';
-  position: absolute;
-  width: 2px;
-  height: 60px;
-  background: white;
-  top: 80px;
-  left: 50%;
+@keyframes float {
+  to { transform: translateY(-120vh); }
 }
 
-@keyframes float {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-120vh); }
+/* Banner */
+#banner {
+  font-family: 'Pacifico', cursive;
+  font-size: 42px;
+  color: white;
+  margin-top: 20px;
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Wishes */
+#wishes {
+  font-family: 'Pacifico', cursive;
+  font-size: 30px;
+  color: white;
+  animation: wishAnim 4s infinite;
+}
+
+@keyframes wishAnim {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<button id="start">Click Here 🎁✨️</button>
+<div class="center" id="step1">
+  <button onclick="lightUp()">Let’s light up ✨</button>
+</div>
 
-<div id="message">
-  <div id="line1"></div>
-  <div id="line2"></div>
-  <div id="line3"></div>
+<div id="bulbs" class="hidden"></div>
+
+<div class="center hidden" id="step2">
+  <button onclick="decorate()">Let’s decorate 🎈</button>
+</div>
+
+<div class="center hidden" id="banner">
+  🎉 Happy 14th Birthday Ishita 🎉
+</div>
+
+<div class="center hidden" id="step3">
+  <button onclick="gift()">Something for you 🌹</button>
+</div>
+
+<div class="center hidden" id="step4">
+  <button onclick="party()">Time for party 🎉</button>
+</div>
+
+<div class="center hidden" id="step5">
+  <button onclick="wishes()">Some wishes for you 💌</button>
+</div>
+
+<div class="center hidden" id="wishes">
+  Ishita, may your life always be filled with smiles,<br>
+  laughter, love, and Tom & Jerry level fun 🐭🐱💖<br>
+  You are special, and today is all about YOU ✨
 </div>
 
 <script>
-const startBtn = document.getElementById("start");
-const msg = document.getElementById("message");
+function lightUp() {
+  document.getElementById("step1").remove();
+  document.getElementById("bulbs").classList.remove("hidden");
+  document.body.style.background = "#ff9acb";
 
-startBtn.onclick = () => {
-  startBtn.style.display = "none";
-  msg.style.display = "block";
-
-  setTimeout(() => {
-    document.getElementById("line1").innerText =
-      "🎉 Happy 14th Birthday Ishita 🎉";
-  }, 800);
-
-  setTimeout(() => {
-    document.getElementById("line2").innerText =
-      "May your day be full of smiles 💖";
-  }, 2200);
-
-  setTimeout(() => {
-    document.getElementById("line3").innerText =
-      "Tom & Jerry level fun awaits you 😄🎈";
-  }, 3600);
-
-  // Balloons
   for (let i = 0; i < 15; i++) {
-    createBalloon();
+    const b = document.createElement("div");
+    b.className = "bulb";
+    document.getElementById("bulbs").appendChild(b);
   }
-};
-
-function createBalloon() {
-  const b = document.createElement("div");
-  b.className = "balloon";
-  b.style.left = Math.random() * 100 + "vw";
-  b.style.background =
-    ["#ff4d6d","#ffd166","#4cc9f0","#9d4edd","#06d6a0"]
-    [Math.floor(Math.random()*5)];
-  b.style.animationDuration = (6 + Math.random() * 4) + "s";
-  document.body.appendChild(b);
 
   setTimeout(() => {
-    b.remove();
-  }, 9000);
+    document.getElementById("step2").classList.remove("hidden");
+  }, 1500);
+}
+
+function decorate() {
+  document.getElementById("step2").remove();
+  document.getElementById("banner").classList.remove("hidden");
+
+  for (let i = 0; i < 20; i++) {
+    const bal = document.createElement("div");
+    bal.className = "balloon";
+    bal.style.left = Math.random() * 100 + "vw";
+    bal.style.background = ["#ff4d6d","#ffd166","#4cc9f0","#9d4edd"][Math.floor(Math.random()*4)];
+    document.body.appendChild(bal);
+  }
+
+  setTimeout(() => {
+    document.getElementById("step3").classList.remove("hidden");
+  }, 2500);
+}
+
+function gift() {
+  document.getElementById("step3").remove();
+  alert("🌹 A black rose just for you, Ishita 🌹\nTom & Jerry are running to wish you!");
+  document.getElementById("step4").classList.remove("hidden");
+}
+
+function party() {
+  document.getElementById("step4").remove();
+  alert("🎂 Cake time! Candles sparkling ✨ Party lights on!");
+  document.getElementById("step5").classList.remove("hidden");
+}
+
+function wishes() {
+  document.getElementById("step5").remove();
+  document.getElementById("wishes").classList.remove("hidden");
 }
 </script>
 
 </body>
 </html>
+
 
 
