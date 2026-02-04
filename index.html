@@ -16,7 +16,6 @@ body{
   transition:background 2s;
 }
 
-/* Center helper */
 .center{
   position:absolute;
   top:50%;
@@ -26,7 +25,7 @@ body{
 }
 
 button{
-  padding:15px 38px;
+  padding:15px 36px;
   font-size:20px;
   border:none;
   border-radius:50px;
@@ -41,40 +40,15 @@ button{
 /* TOP BANNER */
 #banner{
   position:fixed;
-  top:30px;
+  top:25px;
   width:100%;
   text-align:center;
   font-family:'Pacifico',cursive;
   font-size:42px;
   color:white;
-  opacity:0;
-  animation:fadeDown 2s forwards;
 }
 
-@keyframes fadeDown{
-  from{opacity:0;transform:translateY(-30px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-/* GLOWING NAME */
-#nameGlow{
-  font-size:64px;
-  font-family:'Pacifico',cursive;
-  color:#fff;
-  text-shadow:
-    0 0 10px #ff4d88,
-    0 0 25px #ff4d88,
-    0 0 45px #ff85a2;
-  animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.05);}
-  100%{transform:scale(1);}
-}
-
-/* BULBS */
+/* Bulbs */
 #bulbs{
   position:fixed;
   top:0;
@@ -88,82 +62,42 @@ button{
   height:28px;
   background:radial-gradient(circle,#fff,#ffd700);
   border-radius:50%;
-  animation:glow 1s infinite alternate;
+  opacity:.9;
 }
 
-@keyframes glow{
-  from{opacity:.4;}
-  to{opacity:1;}
-}
-
-/* BALLOONS (REALISTIC) */
+/* Balloons */
 .balloon{
   position:absolute;
   bottom:-120px;
   width:55px;
   height:75px;
-  border-radius:50% 50% 50% 50%;
-  animation:float 10s linear infinite;
+  border-radius:50%;
+  animation:floatUp 6s linear forwards;
 }
 .balloon::after{
   content:'';
   position:absolute;
   width:2px;
   height:60px;
-  background:#fff;
+  background:white;
   top:75px;
   left:50%;
 }
 
-@keyframes float{
-  from{transform:translateY(0);}
+@keyframes floatUp{
   to{transform:translateY(-120vh);}
 }
 
-/* IMAGES */
+/* Images */
 img{
   max-width:260px;
-  animation:zoom 2s forwards;
-}
-
-@keyframes zoom{
-  from{opacity:0;transform:scale(.6);}
-  to{opacity:1;transform:scale(1);}
-}
-
-/* Rose text */
-#roseText{
-  margin-top:15px;
-  font-size:20px;
-  color:white;
-  font-style:italic;
-}
-
-/* Tom & Jerry */
-.runner{
-  position:absolute;
-  bottom:20px;
-  width:180px;
-  animation:run 12s linear infinite;
-}
-
-@keyframes run{
-  from{left:-200px;}
-  to{left:110%;}
 }
 
 /* Wishes */
-#wishes{
+#wishText{
   font-family:'Pacifico',cursive;
   font-size:32px;
   color:white;
-  animation:wishFade 4s infinite;
-}
-
-@keyframes wishFade{
-  0%{opacity:0;}
-  50%{opacity:1;}
-  100%{opacity:0;}
 }
 </style>
 </head>
@@ -185,19 +119,16 @@ img{
 </div>
 
 <div class="center hidden" id="step3">
-  <button onclick="gift()">Something for you 🌹</button>
+  <button onclick="showRose()">Something for you 🌹</button>
 </div>
 
 <div class="center hidden" id="rose">
   <img src="https://i.imgur.com/6RLU6Yp.png">
-  <div id="roseText">Your favourite black rose 🌹</div>
+  <div style="color:white;margin-top:12px;">Your favourite black rose 🌹</div>
 </div>
 
-<img class="runner hidden" id="tomjerry"
-src="https://media.tenor.com/7bK3h8z8JQAAAAAC/tom-and-jerry-run.gif">
-
 <div class="center hidden" id="step4">
-  <button onclick="party()">Time for party 🎉</button>
+  <button onclick="showCake()">Time for party 🎉</button>
 </div>
 
 <div class="center hidden" id="cake">
@@ -205,15 +136,10 @@ src="https://media.tenor.com/7bK3h8z8JQAAAAAC/tom-and-jerry-run.gif">
 </div>
 
 <div class="center hidden" id="step5">
-  <button onclick="wishes()">Some wishes for you 💌</button>
+  <button onclick="startWishes()">Some wishes for you 💌</button>
 </div>
 
-<div class="center hidden" id="wishes">
-  <div id="nameGlow">ISHITA</div><br>
-  May your life glow with happiness ✨<br>
-  May your smile never fade 💖<br>
-  Today & always — you are special 🌸
-</div>
+<div class="center hidden" id="wishText"></div>
 
 <script>
 function lightUp(){
@@ -225,7 +151,7 @@ function lightUp(){
     b.className="bulb";
     bulbs.appendChild(b);
   }
-  setTimeout(()=>step2.classList.remove("hidden"),1500);
+  setTimeout(()=>step2.classList.remove("hidden"),1200);
 }
 
 function decorate(){
@@ -240,30 +166,59 @@ function decorate(){
       [Math.floor(Math.random()*5)];
     document.body.appendChild(bal);
   }
-  setTimeout(()=>step3.classList.remove("hidden"),2500);
+  setTimeout(()=>step3.classList.remove("hidden"),3000);
 }
 
-function gift(){
+function showRose(){
   step3.remove();
   rose.classList.remove("hidden");
-  tomjerry.classList.remove("hidden");
-  setTimeout(()=>step4.classList.remove("hidden"),2500);
+  setTimeout(()=>{
+    rose.classList.add("hidden");
+    step4.classList.remove("hidden");
+  },3500);
 }
 
-function party(){
+function showCake(){
   step4.remove();
   cake.classList.remove("hidden");
-  setTimeout(()=>step5.classList.remove("hidden"),2500);
+  setTimeout(()=>{
+    cake.classList.add("hidden");
+    step5.classList.remove("hidden");
+  },3500);
 }
 
-function wishes(){
+const wishes=[
+"Ishita 💖",
+"Today is all about you ✨",
+"Your smile makes everything brighter 🌸",
+"May your dreams grow bigger every day 🌈",
+"May happiness follow you always 💫",
+"You deserve all the love in the world 💝",
+"Never stop being this wonderful 🌷",
+"Happy 14th Birthday once again 🎂"
+];
+
+let i=0;
+function startWishes(){
   step5.remove();
-  document.getElementById("wishes").classList.remove("hidden");
+  wishText.classList.remove("hidden");
+  showNextWish();
+}
+
+function showNextWish(){
+  if(i>=wishes.length) return;
+  wishText.innerText=wishes[i];
+  i++;
+  setTimeout(()=>{
+    wishText.innerText="";
+    setTimeout(showNextWish,800);
+  },2500);
 }
 </script>
 
 </body>
 </html>
+
 
 
 
