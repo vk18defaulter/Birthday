@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Ishita 🎉</title>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+}
+
+/* Center button */
+#start {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 18px 35px;
+  font-size: 22px;
+  border: none;
+  border-radius: 40px;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255,77,109,0.7);
+}
+
+/* Message text */
+#message {
+  display: none;
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  font-size: 28px;
+  line-height: 1.6;
+}
+
+/* Balloons */
+.balloon {
+  position: absolute;
+  bottom: -150px;
+  width: 60px;
+  height: 80px;
+  background: red;
+  border-radius: 50% 50% 50% 50%;
+  animation: float 8s linear infinite;
+}
+
+.balloon::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 60px;
+  background: white;
+  top: 80px;
+  left: 50%;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-120vh); }
+}
+</style>
+</head>
+
+<body>
+
+<button id="start">Click Here 🎁</button>
+
+<div id="message">
+  <div id="line1"></div>
+  <div id="line2"></div>
+  <div id="line3"></div>
+</div>
+
+<script>
+const startBtn = document.getElementById("start");
+const msg = document.getElementById("message");
+
+startBtn.onclick = () => {
+  startBtn.style.display = "none";
+  msg.style.display = "block";
+
+  setTimeout(() => {
+    document.getElementById("line1").innerText =
+      "🎉 Happy 14th Birthday Ishita 🎉";
+  }, 800);
+
+  setTimeout(() => {
+    document.getElementById("line2").innerText =
+      "May your day be full of smiles 💖";
+  }, 2200);
+
+  setTimeout(() => {
+    document.getElementById("line3").innerText =
+      "Tom & Jerry level fun awaits you 😄🎈";
+  }, 3600);
+
+  // Balloons
+  for (let i = 0; i < 15; i++) {
+    createBalloon();
+  }
+};
+
+function createBalloon() {
+  const b = document.createElement("div");
+  b.className = "balloon";
+  b.style.left = Math.random() * 100 + "vw";
+  b.style.background =
+    ["#ff4d6d","#ffd166","#4cc9f0","#9d4edd","#06d6a0"]
+    [Math.floor(Math.random()*5)];
+  b.style.animationDuration = (6 + Math.random() * 4) + "s";
+  document.body.appendChild(b);
+
+  setTimeout(() => {
+    b.remove();
+  }, 9000);
+}
+</script>
+
+</body>
+</html>
