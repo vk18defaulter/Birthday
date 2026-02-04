@@ -7,98 +7,163 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: black;
-  overflow: hidden;
-  font-family: 'Poppins', sans-serif;
-  transition: background 2s;
+body{
+  margin:0;
+  height:100vh;
+  background:black;
+  overflow:hidden;
+  font-family:'Poppins',sans-serif;
+  transition:background 2s;
 }
 
-.center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+/* Center helper */
+.center{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
 }
 
-button {
-  padding: 16px 35px;
-  font-size: 20px;
-  border: none;
-  border-radius: 40px;
-  background: #ff4d88;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 0 25px rgba(255,77,136,0.8);
+button{
+  padding:15px 38px;
+  font-size:20px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,#ff4d88,#ff85a2);
+  color:white;
+  cursor:pointer;
+  box-shadow:0 0 25px rgba(255,77,136,.7);
 }
 
-.hidden { display: none; }
+.hidden{display:none;}
 
-/* Bulbs */
-#bulbs {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
+/* TOP BANNER */
+#banner{
+  position:fixed;
+  top:30px;
+  width:100%;
+  text-align:center;
+  font-family:'Pacifico',cursive;
+  font-size:42px;
+  color:white;
+  opacity:0;
+  animation:fadeDown 2s forwards;
 }
 
-.bulb {
-  width: 20px;
-  height: 30px;
-  background: yellow;
-  border-radius: 50%;
-  animation: glow 1s infinite alternate;
+@keyframes fadeDown{
+  from{opacity:0;transform:translateY(-30px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
-@keyframes glow {
-  from { opacity: 0.3; }
-  to { opacity: 1; }
+/* GLOWING NAME */
+#nameGlow{
+  font-size:64px;
+  font-family:'Pacifico',cursive;
+  color:#fff;
+  text-shadow:
+    0 0 10px #ff4d88,
+    0 0 25px #ff4d88,
+    0 0 45px #ff85a2;
+  animation:pulse 2s infinite;
 }
 
-/* Balloons */
-.balloon {
-  position: absolute;
-  bottom: -150px;
-  width: 60px;
-  height: 80px;
-  border-radius: 50%;
-  animation: float 8s linear infinite;
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+  100%{transform:scale(1);}
 }
 
-@keyframes float {
-  to { transform: translateY(-120vh); }
+/* BULBS */
+#bulbs{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
 }
 
-/* Banner */
-#banner {
-  font-family: 'Pacifico', cursive;
-  font-size: 42px;
-  color: white;
-  margin-top: 20px;
-  animation: fadeIn 2s forwards;
+.bulb{
+  width:18px;
+  height:28px;
+  background:radial-gradient(circle,#fff,#ffd700);
+  border-radius:50%;
+  animation:glow 1s infinite alternate;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
+@keyframes glow{
+  from{opacity:.4;}
+  to{opacity:1;}
+}
+
+/* BALLOONS (REALISTIC) */
+.balloon{
+  position:absolute;
+  bottom:-120px;
+  width:55px;
+  height:75px;
+  border-radius:50% 50% 50% 50%;
+  animation:float 10s linear infinite;
+}
+.balloon::after{
+  content:'';
+  position:absolute;
+  width:2px;
+  height:60px;
+  background:#fff;
+  top:75px;
+  left:50%;
+}
+
+@keyframes float{
+  from{transform:translateY(0);}
+  to{transform:translateY(-120vh);}
+}
+
+/* IMAGES */
+img{
+  max-width:260px;
+  animation:zoom 2s forwards;
+}
+
+@keyframes zoom{
+  from{opacity:0;transform:scale(.6);}
+  to{opacity:1;transform:scale(1);}
+}
+
+/* Rose text */
+#roseText{
+  margin-top:15px;
+  font-size:20px;
+  color:white;
+  font-style:italic;
+}
+
+/* Tom & Jerry */
+.runner{
+  position:absolute;
+  bottom:20px;
+  width:180px;
+  animation:run 12s linear infinite;
+}
+
+@keyframes run{
+  from{left:-200px;}
+  to{left:110%;}
 }
 
 /* Wishes */
-#wishes {
-  font-family: 'Pacifico', cursive;
-  font-size: 30px;
-  color: white;
-  animation: wishAnim 4s infinite;
+#wishes{
+  font-family:'Pacifico',cursive;
+  font-size:32px;
+  color:white;
+  animation:wishFade 4s infinite;
 }
 
-@keyframes wishAnim {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
+@keyframes wishFade{
+  0%{opacity:0;}
+  50%{opacity:1;}
+  100%{opacity:0;}
 }
 </style>
 </head>
@@ -115,7 +180,7 @@ button {
   <button onclick="decorate()">Let’s decorate 🎈</button>
 </div>
 
-<div class="center hidden" id="banner">
+<div id="banner" class="hidden">
   🎉 Happy 14th Birthday Ishita 🎉
 </div>
 
@@ -123,8 +188,20 @@ button {
   <button onclick="gift()">Something for you 🌹</button>
 </div>
 
+<div class="center hidden" id="rose">
+  <img src="https://i.imgur.com/6RLU6Yp.png">
+  <div id="roseText">Your favourite black rose 🌹</div>
+</div>
+
+<img class="runner hidden" id="tomjerry"
+src="https://media.tenor.com/7bK3h8z8JQAAAAAC/tom-and-jerry-run.gif">
+
 <div class="center hidden" id="step4">
   <button onclick="party()">Time for party 🎉</button>
+</div>
+
+<div class="center hidden" id="cake">
+  <img src="https://i.imgur.com/qIufhof.png">
 </div>
 
 <div class="center hidden" id="step5">
@@ -132,65 +209,64 @@ button {
 </div>
 
 <div class="center hidden" id="wishes">
-  Ishita, may your life always be filled with smiles,<br>
-  laughter, love, and Tom & Jerry level fun 🐭🐱💖<br>
-  You are special, and today is all about YOU ✨
+  <div id="nameGlow">ISHITA</div><br>
+  May your life glow with happiness ✨<br>
+  May your smile never fade 💖<br>
+  Today & always — you are special 🌸
 </div>
 
 <script>
-function lightUp() {
-  document.getElementById("step1").remove();
-  document.getElementById("bulbs").classList.remove("hidden");
-  document.body.style.background = "#ff9acb";
-
-  for (let i = 0; i < 15; i++) {
-    const b = document.createElement("div");
-    b.className = "bulb";
-    document.getElementById("bulbs").appendChild(b);
+function lightUp(){
+  step1.remove();
+  bulbs.classList.remove("hidden");
+  document.body.style.background="#ff9acb";
+  for(let i=0;i<15;i++){
+    const b=document.createElement("div");
+    b.className="bulb";
+    bulbs.appendChild(b);
   }
-
-  setTimeout(() => {
-    document.getElementById("step2").classList.remove("hidden");
-  }, 1500);
+  setTimeout(()=>step2.classList.remove("hidden"),1500);
 }
 
-function decorate() {
-  document.getElementById("step2").remove();
-  document.getElementById("banner").classList.remove("hidden");
-
-  for (let i = 0; i < 20; i++) {
-    const bal = document.createElement("div");
-    bal.className = "balloon";
-    bal.style.left = Math.random() * 100 + "vw";
-    bal.style.background = ["#ff4d6d","#ffd166","#4cc9f0","#9d4edd"][Math.floor(Math.random()*4)];
+function decorate(){
+  step2.remove();
+  banner.classList.remove("hidden");
+  for(let i=0;i<18;i++){
+    const bal=document.createElement("div");
+    bal.className="balloon";
+    bal.style.left=Math.random()*100+"vw";
+    bal.style.background=
+      ["#ff4d6d","#ffd166","#4cc9f0","#9d4edd","#06d6a0"]
+      [Math.floor(Math.random()*5)];
     document.body.appendChild(bal);
   }
-
-  setTimeout(() => {
-    document.getElementById("step3").classList.remove("hidden");
-  }, 2500);
+  setTimeout(()=>step3.classList.remove("hidden"),2500);
 }
 
-function gift() {
-  document.getElementById("step3").remove();
-  alert("🌹 A black rose just for you, Ishita 🌹\nTom & Jerry are running to wish you!");
-  document.getElementById("step4").classList.remove("hidden");
+function gift(){
+  step3.remove();
+  rose.classList.remove("hidden");
+  tomjerry.classList.remove("hidden");
+  setTimeout(()=>step4.classList.remove("hidden"),2500);
 }
 
-function party() {
-  document.getElementById("step4").remove();
-  alert("🎂 Cake time! Candles sparkling ✨ Party lights on!");
-  document.getElementById("step5").classList.remove("hidden");
+function party(){
+  step4.remove();
+  cake.classList.remove("hidden");
+  setTimeout(()=>step5.classList.remove("hidden"),2500);
 }
 
-function wishes() {
-  document.getElementById("step5").remove();
+function wishes(){
+  step5.remove();
   document.getElementById("wishes").classList.remove("hidden");
 }
 </script>
 
 </body>
 </html>
+
+
+
 
 
 
