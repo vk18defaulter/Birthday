@@ -48,7 +48,7 @@ button{
   color:white;
 }
 
-/* Bulbs */
+/* BULBS */
 #bulbs{
   position:fixed;
   top:0;
@@ -62,10 +62,10 @@ button{
   height:28px;
   background:radial-gradient(circle,#fff,#ffd700);
   border-radius:50%;
-  opacity:.9;
+  box-shadow:0 0 20px gold;
 }
 
-/* Balloons */
+/* BALLOONS */
 .balloon{
   position:absolute;
   bottom:-120px;
@@ -88,12 +88,66 @@ button{
   to{transform:translateY(-120vh);}
 }
 
-/* Images */
-img{
-  max-width:260px;
+/* 🌹 ROSE CONTAINER */
+#roseContainer{
+  position:fixed;
+  bottom:-450px;
+  left:50%;
+  transform:translateX(-50%) scale(0.85);
+  text-align:center;
+  animation:roseFloat 3.2s ease forwards;
+  z-index:10;
 }
 
-/* Wishes */
+#roseImg{
+  width:260px;
+  filter: drop-shadow(0 0 25px rgba(255,255,255,0.25));
+}
+
+#roseShadow{
+  width:160px;
+  height:20px;
+  background:rgba(0,0,0,0.4);
+  border-radius:50%;
+  margin:12px auto 0;
+  filter: blur(10px);
+}
+
+#roseText{
+  margin-top:14px;
+  font-size:22px;
+  color:white;
+  font-family:'Pacifico',cursive;
+}
+
+/* FLOAT + ZOOM */
+@keyframes roseFloat{
+  to{
+    bottom:50%;
+    transform:translate(-50%,50%) scale(1);
+  }
+}
+
+/* 🌸 PETALS */
+.petal{
+  position:fixed;
+  top:-50px;
+  width:16px;
+  height:16px;
+  background:radial-gradient(circle,#ffb3c6,#ff4d6d);
+  border-radius:50%;
+  opacity:0.7;
+  animation:petalFall linear forwards;
+}
+
+@keyframes petalFall{
+  to{
+    transform:translateY(120vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+/* WISH TEXT */
 #wishText{
   font-family:'Pacifico',cursive;
   font-size:32px;
@@ -115,16 +169,18 @@ img{
 </div>
 
 <div id="banner" class="hidden">
-  🎉 Happy 14th Birthday Ishita 🎉
+  🎉 Happy 14th Birthday <span style="color:#ffd6e0;">ISHITA</span> 🎉
 </div>
 
 <div class="center hidden" id="step3">
   <button onclick="showRose()">Something for you 🌹</button>
 </div>
 
-<div class="center hidden" id="rose">
-  <img src="https://i.imgur.com/6RLU6Yp.png">
-  <div style="color:white;margin-top:12px;">Your favourite black rose 🌹</div>
+<!-- ROSE -->
+<div id="roseContainer" class="hidden">
+  <img src="black-rose.png" id="roseImg">
+  <div id="roseShadow"></div>
+  <div id="roseText">Your favourite black rose 🖤🌹</div>
 </div>
 
 <div class="center hidden" id="step4">
@@ -132,7 +188,7 @@ img{
 </div>
 
 <div class="center hidden" id="cake">
-  <img src="https://i.imgur.com/qIufhof.png">
+  <img src="https://i.imgur.com/qIufhof.png" style="width:240px;">
 </div>
 
 <div class="center hidden" id="step5">
@@ -171,11 +227,22 @@ function decorate(){
 
 function showRose(){
   step3.remove();
-  rose.classList.remove("hidden");
+  roseContainer.classList.remove("hidden");
+
+  // petals
+  for(let i=0;i<25;i++){
+    const p=document.createElement("div");
+    p.className="petal";
+    p.style.left=Math.random()*100+"vw";
+    p.style.animationDuration=(4+Math.random()*3)+"s";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),7000);
+  }
+
   setTimeout(()=>{
-    rose.classList.add("hidden");
+    roseContainer.style.display="none";
     step4.classList.remove("hidden");
-  },3500);
+  },4200);
 }
 
 function showCake(){
@@ -189,12 +256,12 @@ function showCake(){
 
 const wishes=[
 "Ishita 💖",
-"Today is all about you ✨",
-"Your smile makes everything brighter 🌸",
-"May your dreams grow bigger every day 🌈",
-"May happiness follow you always 💫",
-"You deserve all the love in the world 💝",
-"Never stop being this wonderful 🌷",
+"Today is a little more special ✨",
+"Because someone amazing was born 🌸",
+"Your smile makes everything brighter 🌈",
+"May your dreams grow fearlessly 💫",
+"May happiness always find you 💝",
+"You are truly one of a kind 🌷",
 "Happy 14th Birthday once again 🎂"
 ];
 
@@ -202,22 +269,23 @@ let i=0;
 function startWishes(){
   step5.remove();
   wishText.classList.remove("hidden");
-  showNextWish();
+  nextWish();
 }
 
-function showNextWish(){
+function nextWish(){
   if(i>=wishes.length) return;
   wishText.innerText=wishes[i];
   i++;
   setTimeout(()=>{
     wishText.innerText="";
-    setTimeout(showNextWish,800);
+    setTimeout(nextWish,800);
   },2500);
 }
 </script>
 
 </body>
 </html>
+
 
 
 
