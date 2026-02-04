@@ -3,100 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <title>Happy Birthday Ishita 🎉</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
-body {
+html, body {
   margin: 0;
-  height: 100vh;
-  background: #111;
-  color: #fff;
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 0;
+  height: 100%;
+  background: black;
   overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
 }
 
-.container {
+/* Center button */
+#start {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 18px 35px;
+  font-size: 22px;
+  border: none;
+  border-radius: 40px;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255,77,109,0.7);
+}
+
+/* Message text */
+#message {
+  display: none;
   text-align: center;
-  max-width: 90%;
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  font-size: 28px;
+  line-height: 1.6;
 }
 
-.text {
-  font-size: 1.6em;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 1s ease;
-  margin: 15px 0;
+/* Balloons */
+.balloon {
+  position: absolute;
+  bottom: -150px;
+  width: 60px;
+  height: 80px;
+  background: red;
+  border-radius: 50% 50% 50% 50%;
+  animation: float 8s linear infinite;
 }
 
-.show {
-  opacity: 1;
-  transform: translateY(0);
+.balloon::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 60px;
+  background: white;
+  top: 80px;
+  left: 50%;
 }
 
-.name {
-  font-size: 2.2em;
-  color: #ff6b81;
-}
-
-.characters {
-  font-size: 3em;
-}
-
-.fade {
-  animation: fadeIn 1.2s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-120vh); }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <div id="t1" class="text">Hey Ishita 👋</div>
-  <div id="t2" class="text">Today is a special day ✨</div>
-  <div id="t3" class="text">Because someone amazing turns</div>
-  <div id="t4" class="text name">14 🎉</div>
-  <div id="t5" class="text">Happy Birthday 🎂</div>
-  <div id="t6" class="text name">Ishita 💖</div>
-  <div id="t7" class="text characters">🐱 Tom & Jerry 🐭</div>
-  <div id="t8" class="text">May your day be full of fun, laughter,</div>
-  <div id="t9" class="text">and endless smiles 😊</div>
+<button id="start">Click Here 🎁</button>
+
+<div id="message">
+  <div id="line1"></div>
+  <div id="line2"></div>
+  <div id="line3"></div>
 </div>
 
-<audio id="song">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5c7c7dcb65.mp3?filename=happy-birthday-to-you-piano-version-116091.mp3" type="audio/mpeg">
-</audio>
-
 <script>
-const texts = [
-  "t1","t2","t3","t4","t5","t6","t7","t8","t9"
-];
+const startBtn = document.getElementById("start");
+const msg = document.getElementById("message");
 
-let i = 0;
-const song = document.getElementById("song");
+startBtn.onclick = () => {
+  startBtn.style.display = "none";
+  msg.style.display = "block";
 
-function showText() {
-  if (i < texts.length) {
-    document.getElementById(texts[i]).classList.add("show");
-    i++;
-    setTimeout(showText, 1200);
+  setTimeout(() => {
+    document.getElementById("line1").innerText =
+      "🎉 Happy 14th Birthday Ishita 🎉";
+  }, 800);
+
+  setTimeout(() => {
+    document.getElementById("line2").innerText =
+      "May your day be full of smiles 💖";
+  }, 2200);
+
+  setTimeout(() => {
+    document.getElementById("line3").innerText =
+      "Tom & Jerry level fun awaits you 😄🎈";
+  }, 3600);
+
+  // Balloons
+  for (let i = 0; i < 15; i++) {
+    createBalloon();
   }
+};
+
+function createBalloon() {
+  const b = document.createElement("div");
+  b.className = "balloon";
+  b.style.left = Math.random() * 100 + "vw";
+  b.style.background =
+    ["#ff4d6d","#ffd166","#4cc9f0","#9d4edd","#06d6a0"]
+    [Math.floor(Math.random()*5)];
+  b.style.animationDuration = (6 + Math.random() * 4) + "s";
+  document.body.appendChild(b);
+
+  setTimeout(() => {
+    b.remove();
+  }, 9000);
 }
-
-// auto-start feel (music starts after first tap anywhere)
-document.body.addEventListener("click", () => {
-  song.play();
-}, { once: true });
-
-setTimeout(showText, 800);
 </script>
 
 </body>
 </html>
+
+
